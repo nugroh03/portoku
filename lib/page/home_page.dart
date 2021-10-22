@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portofolioku_flutter/constans.dart';
+import 'package:portofolioku_flutter/model/project_model.dart';
 import 'package:portofolioku_flutter/responsive.dart';
 import 'package:portofolioku_flutter/widget/buttonWidget.dart';
 import 'package:portofolioku_flutter/widget/keahlianWidget.dart';
@@ -18,6 +19,25 @@ class _HomePageState extends State<HomePage> {
   String title2 = "Resume";
   String title3 = "Project";
   int indexmenu = 0;
+  final controller = ScrollController();
+  static const double spacing = 8;
+  static const double padding = 20;
+  int item = 0;
+
+  get newItemCount => (itemsProject.length / 2).round();
+
+  void jumpToItem(int item) {
+    final width = controller.position.maxScrollExtent +
+        context.size!.width -
+        padding * 2 +
+        spacing;
+    final value = item / newItemCount * width;
+    final valueSpace = padding + value;
+    final newValue = valueSpace > controller.position.maxScrollExtent
+        ? controller.position.maxScrollExtent
+        : valueSpace;
+    controller.jumpTo(newValue);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +65,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Text(
             "Nugroho Dwi Cahyono",
+            textAlign: TextAlign.center,
             style: blackTextStyle.copyWith(fontSize: 18),
           ),
         ]),
@@ -81,9 +102,11 @@ class _HomePageState extends State<HomePage> {
           width: width,
           color: greyColor,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "Garut, Jawa Barat, Indonesia",
+                textAlign: TextAlign.center,
                 style: blackTextStyle.copyWith(fontSize: 14),
               ),
               SizedBox(
@@ -91,6 +114,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Text(
                 "nugroho.dwi.cahyono@gmail.com",
+                textAlign: TextAlign.center,
                 style: blackTextStyle.copyWith(fontSize: 14),
               ),
               SizedBox(
@@ -110,14 +134,20 @@ class _HomePageState extends State<HomePage> {
         child: Column(children: [
           ButtonWidget(
             title: "Email Me",
-            width: width,
+            width:
+                (Responsive.isDesktop(context) || Responsive.isTablet(context))
+                    ? (width)
+                    : (width * 5),
           ),
           SizedBox(
             height: 20,
           ),
           ButtonWidget(
             title: "Theme",
-            width: width,
+            width:
+                (Responsive.isDesktop(context) || Responsive.isTablet(context))
+                    ? (width)
+                    : (width * 5),
           )
         ]),
       );
@@ -285,6 +315,10 @@ class _HomePageState extends State<HomePage> {
                                     width: width,
                                     title: "Frontend Developer",
                                     icons: Icons.desktop_windows,
+                                    height: (Responsive.isDesktop(context)) ||
+                                            (Responsive.isTablet(context))
+                                        ? 100
+                                        : 150,
                                     description:
                                         "I can build build beautiful and responsive your desain mobile or website using flutter",
                                   ),
@@ -295,6 +329,10 @@ class _HomePageState extends State<HomePage> {
                                     width: width,
                                     title: "Consume API",
                                     icons: Icons.desktop_windows,
+                                    height: (Responsive.isDesktop(context)) ||
+                                            (Responsive.isTablet(context))
+                                        ? 100
+                                        : 150,
                                     description:
                                         "I can consume API for your apps or website from backend",
                                   ),
@@ -317,11 +355,14 @@ class _HomePageState extends State<HomePage> {
     Widget resume() {
       return Expanded(
           child: Container(
-        child: Column(
+        child: ListView(
+          shrinkWrap: false,
           children: [
             Container(
-              height: 200,
+              constraints: BoxConstraints(minHeight: 200),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Container(
@@ -403,8 +444,7 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Expanded(
-                child: Container(
+            Container(
               color: greyColor,
               child: Row(
                 children: [
@@ -415,11 +455,17 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Language & Framework",
-                            style: blackTextStyle.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            height: (Responsive.isDesktop(context)) ||
+                                    (Responsive.isTablet(context))
+                                ? null
+                                : 50,
+                            child: Text(
+                              "Language & Framework",
+                              style: blackTextStyle.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -439,11 +485,17 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Tools & Softwares",
-                            style: blackTextStyle.copyWith(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Container(
+                            height: (Responsive.isDesktop(context)) ||
+                                    (Responsive.isTablet(context))
+                                ? null
+                                : 50,
+                            child: Text(
+                              "Tools & Softwares",
+                              style: blackTextStyle.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -458,7 +510,111 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            ))
+            )
+          ],
+        ),
+      ));
+    }
+
+    Widget project() {
+      return Expanded(
+          child: Container(
+        padding: EdgeInsets.all(20),
+        child: Stack(
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 3 / 4,
+                  ),
+                  itemCount: itemsProject.length,
+                  scrollDirection: Axis.horizontal,
+                  controller: controller,
+                  itemBuilder: (context, index) {
+                    ProjectModel item = itemsProject[index];
+                    return Container(
+                        width: width,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(children: [
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                                width: width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                decoration: BoxDecoration(
+                                    color: greyColor,
+                                    image: DecorationImage(
+                                        image: AssetImage(item.image)))),
+                          ),
+                          SizedBox(height: 10),
+                          Expanded(
+                              flex: 1,
+                              child: Container(child: Text(item.title)))
+                        ]));
+                  }),
+            ),
+            Positioned(
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                    width: width,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                item = item - 1 < 0 ? item : item - 1;
+                                jumpToItem(item);
+                              },
+                              child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  padding: EdgeInsets.only(left: 10),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          gradient1,
+                                          gradient2,
+                                        ],
+                                      )),
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.arrow_back_ios,
+                                      color: whiteColor))),
+                          GestureDetector(
+                              onTap: () {
+                                item =
+                                    item + 1 >= newItemCount ? item : item + 1;
+                                jumpToItem(item);
+                              },
+                              child: Container(
+                                  height: 40,
+                                  width: 40,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          gradient1,
+                                          gradient2,
+                                        ],
+                                      )),
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.arrow_forward_ios,
+                                      color: whiteColor))),
+                        ])),
+              ),
+            )
           ],
         ),
       ));
@@ -466,19 +622,132 @@ class _HomePageState extends State<HomePage> {
 
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [
-          gradient1,
-          gradient2,
-        ],
-      )),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            gradient1,
+            gradient2,
+          ],
+        ),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Responsive(
-          mobile: Container(),
-          tablet: Container(),
+          mobile: Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: width * 0.1,
+              vertical: height * 0.05,
+            ),
+            decoration: BoxDecoration(
+              color: whiteColor,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                    width: width,
+                    height: height,
+                    child: Column(
+                      children: [
+                        headerImage(),
+                        keahlian(),
+                        address(),
+                        button()
+                      ],
+                    ),
+                  ),
+                  Container(
+                      width: width,
+                      height: height,
+                      child: Column(
+                        children: [
+                          menuButton(),
+                          if (indexmenu == 0) aboutUs(),
+                          if (indexmenu == 1) resume(),
+                          if (indexmenu == 2) project(),
+                        ],
+                      )),
+                ],
+              ),
+            ),
+          ),
+          tablet: Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: width * 0.1,
+                vertical: height * 0.1,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        width: width,
+                        height: height,
+                        child: SingleChildScrollView(
+                          child: Column(children: [
+                            headerImage(),
+                            keahlian(),
+                            address(),
+                            //button()
+                          ]),
+                        )),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: Container(
+                        width: width,
+                        height: height,
+                        decoration: BoxDecoration(
+                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            menuButton(),
+                            if (indexmenu == 0) aboutUs(),
+                            if (indexmenu == 1) resume(),
+                            if (indexmenu == 2) project(),
+                          ],
+                        )),
+                  )
+                ],
+              )),
           desktop: Container(
             margin: EdgeInsets.symmetric(
               horizontal: width * 0.1,
@@ -536,6 +805,7 @@ class _HomePageState extends State<HomePage> {
                           menuButton(),
                           if (indexmenu == 0) aboutUs(),
                           if (indexmenu == 1) resume(),
+                          if (indexmenu == 2) project(),
                         ],
                       )),
                 )

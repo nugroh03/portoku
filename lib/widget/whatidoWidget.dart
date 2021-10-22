@@ -3,13 +3,19 @@ import 'package:portofolioku_flutter/constans.dart';
 
 class WhatIDO extends StatelessWidget {
   const WhatIDO(
-      {Key? key, this.width, this.title, this.icons, this.description})
+      {Key? key,
+      this.width,
+      this.title,
+      this.icons,
+      this.height,
+      this.description})
       : super(key: key);
 
   final double? width;
   final String? title;
   final String? description;
   final IconData? icons;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +23,13 @@ class WhatIDO extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         width: width,
-        height: 80,
+        height: height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: whiteColor,
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               child: Icon(

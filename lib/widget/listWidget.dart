@@ -38,10 +38,13 @@ class ListWidget extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          Text(title!,
-              style: whiteTextStyle.copyWith(
-                fontSize: 16,
-              )),
+          Expanded(
+            child: Text(title!,
+                overflow: TextOverflow.ellipsis,
+                style: whiteTextStyle.copyWith(
+                  fontSize: 16,
+                )),
+          ),
         ],
       ),
     );

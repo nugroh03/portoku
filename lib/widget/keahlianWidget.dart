@@ -11,12 +11,16 @@ class KeahlianWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(top: 10),
-        height: 30,
+        constraints: BoxConstraints(
+          minHeight: 30,
+        ),
         width: width,
         decoration: BoxDecoration(
             color: greyColor, borderRadius: BorderRadius.circular(10)),
         child: Center(
-          child: Text(title!, style: blackTextStyle.copyWith(fontSize: 14)),
+          child: Text(title!,
+              textAlign: TextAlign.center,
+              style: blackTextStyle.copyWith(fontSize: 14)),
         ));
   }
 }
