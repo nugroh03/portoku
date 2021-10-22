@@ -10,7 +10,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width! * 0.1,
+      width: width!,
       height: 35,
       decoration: BoxDecoration(
         gradient: LinearGradient(
