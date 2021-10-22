@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
             width:
                 (Responsive.isDesktop(context) || Responsive.isTablet(context))
                     ? (width)
-                    : (width * 5),
+                    : (width * 0.5),
           ),
           SizedBox(
             height: 20,
@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
             width:
                 (Responsive.isDesktop(context) || Responsive.isTablet(context))
                     ? (width)
-                    : (width * 5),
+                    : (width * 0.5),
           )
         ]),
       );
@@ -355,8 +355,12 @@ class _HomePageState extends State<HomePage> {
     Widget resume() {
       return Expanded(
           child: Container(
-        child: ListView(
-          shrinkWrap: false,
+        decoration: BoxDecoration(
+            color: greyColor,
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20))),
+        child: Column(
           children: [
             Container(
               constraints: BoxConstraints(minHeight: 200),
@@ -445,7 +449,6 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              color: greyColor,
               child: Row(
                 children: [
                   Expanded(
@@ -634,29 +637,28 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Responsive(
-          mobile: Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: width * 0.1,
-              vertical: height * 0.05,
-            ),
-            decoration: BoxDecoration(
-              color: whiteColor,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: SingleChildScrollView(
+          mobile: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: width * 0.1,
+                vertical: height * 0.05,
+              ),
+              decoration: BoxDecoration(
+                color: whiteColor,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
               child: Column(
                 children: [
                   Container(
                     width: width,
-                    height: height,
                     child: Column(
                       children: [
                         headerImage(),
@@ -666,9 +668,12 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Container(
                       width: width,
-                      height: height,
+                      height: height * 1.5,
                       child: Column(
                         children: [
                           menuButton(),
