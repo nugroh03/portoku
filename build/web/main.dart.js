@@ -53271,7 +53271,7 @@ n.toString
 s=this.c
 s=s.ghA(s).a
 $.L3()
-r=20+a/C.c.ay(7.5)*(n+s-40+8)
+r=a/C.c.ay(7.5)*(n+s)
 n=C.b.gbE(o).Q
 n.toString
 if(r>n){o=C.b.gbE(o).Q
@@ -53301,7 +53301,7 @@ b=H.a([p.$0()],e)
 if(a0.r===0)b.push(o.$0())
 if(a0.r===1)b.push(n.$0())
 if(a0.r===2)b.push(m.$0())
-j=E.aas(M.as(a1,T.cz(H.a([d,c,M.as(a1,T.cz(b,C.I,C.K),a1,a1,a1,a4*1.5,a1,a1,a3)],e),C.I,C.K),a1,a1,new S.bw(C.j,a1,a1,i,f,a1,C.D),a1,new V.az(k,j,k,j),a1,a1))
+j=E.aas(M.as(a1,T.cz(H.a([d,c,M.as(a1,T.cz(b,C.I,C.K),a1,a1,a1,a4*1.1,a1,a1,a3)],e),C.I,C.K),a1,a1,new S.bw(C.j,a1,a1,i,f,a1,C.D),a1,new V.az(k,j,k,j),a1,a1))
 i=a4*0.1
 f=K.el(20)
 d=H.a([new O.en(5,P.aR(h,158,158,158),new P.t(0,3),7)],g)
@@ -53407,7 +53407,7 @@ return T.dy(M.as(m,T.Dy(C.d8,H.a([q,T.Ta(m,new T.mc(C.aa,m,m,M.as(m,T.hb(H.a([o,
 $S:14}
 X.a_C.prototype={
 $2(a,b){var s=null,r=$.L3()[b],q=this.a,p=K.el(10),o=a.a_(t.w).f
-return M.as(s,T.cz(H.a([T.dy(M.as(s,s,s,s,new S.bw(C.cr,X.a8R(s,new L.mg(r.b)),s,s,s,s,C.D),o.a.b*0.05,s,s,q),3),T.cq(s,10,s),T.dy(M.as(s,L.bO(r.a,s,s,s,s),s,s,s,s,s,s,s),1)],t.D),C.I,C.K),s,s,new S.bw(s,s,s,p,s,s,C.D),s,s,new V.az(20,10,20,10),q)},
+return M.as(s,T.cz(H.a([T.dy(M.as(s,s,s,s,new S.bw(C.cr,X.a8R(s,new L.mg(r.b)),s,s,s,s,C.D),o.a.b*0.05,s,s,q),3),T.cq(s,10,s),T.dy(M.as(s,L.bO(r.a,s,s,s,s),s,s,s,s,s,s,s),1)],t.D),C.I,C.K),s,s,new S.bw(s,s,s,p,s,s,C.D),s,s,new V.az(0,10,0,10),q)},
 $S:329}
 X.a_D.prototype={
 $0(){var s=this.a,r=s.y,q=r-1

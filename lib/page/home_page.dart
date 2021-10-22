@@ -27,12 +27,9 @@ class _HomePageState extends State<HomePage> {
   get newItemCount => (itemsProject.length / 2).round();
 
   void jumpToItem(int item) {
-    final width = controller.position.maxScrollExtent +
-        context.size!.width -
-        padding * 2 +
-        spacing;
+    final width = controller.position.maxScrollExtent + context.size!.width;
     final value = item / newItemCount * width;
-    final valueSpace = padding + value;
+    final valueSpace = value;
     final newValue = valueSpace > controller.position.maxScrollExtent
         ? controller.position.maxScrollExtent
         : valueSpace;
@@ -539,8 +536,7 @@ class _HomePageState extends State<HomePage> {
                     ProjectModel item = itemsProject[index];
                     return Container(
                         width: width,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -673,7 +669,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                       width: width,
-                      height: height * 1.5,
+                      height: height * 1.1,
                       child: Column(
                         children: [
                           menuButton(),
