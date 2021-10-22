@@ -3,9 +3,13 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "56e5db64eead43f214a339b789a2290a",
+  "assets/AssetManifest.json": "247f4224406d57f6b53375306823140d",
 "assets/assets/Flutter.png": "e31f1c20d27c4415bce49ca10cc44ba1",
 "assets/assets/fotoku.JPG": "64dc91892a1ad7f104bb75adc9ffc580",
+"assets/assets/gadgetSolusi.png": "12af2b9d99d100cb55ac89bbc41e1622",
+"assets/assets/multibagger.png": "6dececccd3acbf575698c3a459273b73",
+"assets/assets/newspocket.jpeg": "9a4ef1dba883a447bffbea855246b9df",
+"assets/assets/weatherapp.jpeg": "cee71e82c285a7a541f6db2f5ce6f0cd",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
 "assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
 "assets/NOTICES": "68904c530f641946a2a652392aa4f47b",
@@ -15,9 +19,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "a65b0b43374eef25e9bbd9fdeecb9890",
-"/": "a65b0b43374eef25e9bbd9fdeecb9890",
-"main.dart.js": "95d86745225edd9d22d636c8f2fa412b",
+"index.html": "037ad588f16b8e73481f5a911ba027a0",
+"/": "037ad588f16b8e73481f5a911ba027a0",
+"main.dart.js": "bc806ea428a92fbd1c835600c0d54690",
 "manifest.json": "17b9a50885d111b33cb7792eba32c099",
 "version.json": "cb1fb2bd9fab2accf491e219513a0e2f"
 };

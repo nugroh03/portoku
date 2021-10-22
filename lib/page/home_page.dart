@@ -6,6 +6,7 @@ import 'package:portofolioku_flutter/widget/buttonWidget.dart';
 import 'package:portofolioku_flutter/widget/keahlianWidget.dart';
 import 'package:portofolioku_flutter/widget/listWidget.dart';
 import 'package:portofolioku_flutter/widget/whatidoWidget.dart';
+import 'dart:html' as html;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,16 +25,38 @@ class _HomePageState extends State<HomePage> {
   static const double padding = 20;
   int item = 0;
 
+  bool detailProduct = false;
+  List hover = [];
+
+  late String imageDetail;
+  late String titledetail;
+  late String descriptiondetail;
+
   get newItemCount => (itemsProject.length / 2).round();
 
-  void jumpToItem(int item) {
-    final width = controller.position.maxScrollExtent + context.size!.width;
+  void jumpToItem(int item, double widths) {
+    final width = controller.position.maxScrollExtent +
+        context.size!.width -
+        padding * 2 +
+        spacing;
+
     final value = item / newItemCount * width;
     final valueSpace = value;
     final newValue = valueSpace > controller.position.maxScrollExtent
         ? controller.position.maxScrollExtent
         : valueSpace;
     controller.jumpTo(newValue);
+  }
+
+  void _mouseEnter(
+      int index, String title, String description, String image, bool active) {
+    setState(() {
+      titledetail = title;
+      descriptiondetail = description;
+      imageDetail = image;
+
+      hover[index] = active;
+    });
   }
 
   @override
@@ -60,8 +83,12 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 20,
           ),
+          Text("Nugroho Dwi Cahyono",
+              textAlign: TextAlign.center,
+              style: blackTextStyle.copyWith(
+                  fontSize: 18, fontWeight: FontWeight.bold)),
           Text(
-            "Nugroho Dwi Cahyono",
+            "Flutter Developer",
             textAlign: TextAlign.center,
             style: blackTextStyle.copyWith(fontSize: 18),
           ),
@@ -74,16 +101,24 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.only(top: 10),
         padding: EdgeInsets.symmetric(horizontal: 30),
         child: Column(children: [
+          // KeahlianWidget(
+          //   width: width,
+          //   title: "Flutter Developer",
+          // ),
           KeahlianWidget(
             width: width,
-            title: "Flutter Developer",
-          ),
-          KeahlianWidget(
-            width: width,
+            button: () {
+              html.window.open(
+                  ' https://drive.google.com/file/d/1ev2kDvV75se_i5qzAvluR13wrOAiy5jq/view',
+                  'tab2');
+            },
             title: "Download Resume",
           ),
           KeahlianWidget(
             width: width,
+            button: () {
+              html.window.open(' https://github.com/nugroh03', 'tab1');
+            },
             title: "Github",
           )
         ]),
@@ -130,22 +165,27 @@ class _HomePageState extends State<HomePage> {
         margin: EdgeInsets.only(top: 20),
         child: Column(children: [
           ButtonWidget(
-            title: "Email Me",
+            title: "Whatsapp",
+            button: () {
+              html.window.open(
+                  'https://api.whatsapp.com/send?phone=6282338767130&text=Halo,%20Saya%20ingin%20bertanya%20kepada%20anda',
+                  'tab');
+            },
             width:
                 (Responsive.isDesktop(context) || Responsive.isTablet(context))
-                    ? (width)
+                    ? (width * 0.1)
                     : (width * 0.5),
           ),
           SizedBox(
             height: 20,
           ),
-          ButtonWidget(
-            title: "Theme",
-            width:
-                (Responsive.isDesktop(context) || Responsive.isTablet(context))
-                    ? (width)
-                    : (width * 0.5),
-          )
+          // ButtonWidget(
+          //   title: "Theme",
+          //   width:
+          //       (Responsive.isDesktop(context) || Responsive.isTablet(context))
+          //           ? (width)
+          //           : (width * 0.5),
+          // )
         ]),
       );
     }
@@ -349,166 +389,176 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget resume() {
+    Widget resume(physics, shrink) {
       return Expanded(
           child: Container(
-        decoration: BoxDecoration(
-            color: greyColor,
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20))),
-        child: Column(
+        child: ListView(
+          physics: physics, // <-- this will disable scroll
+          shrinkWrap: shrink,
           children: [
-            Container(
-              constraints: BoxConstraints(minHeight: 200),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Education",
-                              style: blackTextStyle.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+            Expanded(
+              flex: 1,
+              child: Container(
+                constraints: BoxConstraints(minHeight: 200),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Education",
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("Ship Building Engineering",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            Text("Politechnic State Of Madura ( 2013 - 2016 )",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                                "Saya memang tidak memiliki latar belakang pendidikan seorang programer. namun tahun 2020 saya memulai belajar programer dari teman dan juga pelatihan-pelatihan programer yang ada seperti flutter",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 14,
-                                )),
-                          ]),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Experience",
-                              style: blackTextStyle.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                              SizedBox(
+                                height: 5,
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("Front End Developer",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            Text(
-                                "Hejo Teknologi Indonesia (Sept 2020 - Feb 2021)",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                )),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                                "Pekerjaan Saya sebagai Seorang Flutter Developer Dimulai dari sini",
-                                style: blackTextStyle.copyWith(
-                                  fontSize: 14,
-                                )),
-                          ]),
+                              Text("Ship Building Engineering",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              Text(
+                                  "Politechnic State Of Madura ( 2013 - 2016 )",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                  "Saya memang tidak memiliki latar belakang pendidikan seorang programer. namun tahun 2020 saya memulai belajar programer dari teman dan juga pelatihan-pelatihan programer yang ada seperti flutter",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 14,
+                                  )),
+                            ]),
+                      ),
                     ),
-                  )
-                ],
+                    Expanded(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Experience",
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text("Front End Developer",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              Text(
+                                  "Hejo Teknologi Indonesia (Sept 2020 - Feb 2021)",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                  "Pekerjaan Saya sebagai Seorang Flutter Developer Dimulai dari sini",
+                                  style: blackTextStyle.copyWith(
+                                    fontSize: 14,
+                                  )),
+                            ]),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-            Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: (Responsive.isDesktop(context)) ||
-                                    (Responsive.isTablet(context))
-                                ? null
-                                : 50,
-                            child: Text(
-                              "Language & Framework",
-                              style: blackTextStyle.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+            Expanded(
+              flex: 3,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: greyColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: (Responsive.isDesktop(context)) ||
+                                      (Responsive.isTablet(context))
+                                  ? null
+                                  : 50,
+                              child: Text(
+                                "Language & Framework",
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          ListWidget(width: width, title: "Flutter"),
-                          ListWidget(width: width, title: "Firebase"),
-                          ListWidget(width: width, title: "NextJs"),
-                        ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ListWidget(width: width, title: "Flutter"),
+                            ListWidget(width: width, title: "Firebase"),
+                            ListWidget(width: width, title: "NextJs"),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: (Responsive.isDesktop(context)) ||
-                                    (Responsive.isTablet(context))
-                                ? null
-                                : 50,
-                            child: Text(
-                              "Tools & Softwares",
-                              style: blackTextStyle.copyWith(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: (Responsive.isDesktop(context)) ||
+                                      (Responsive.isTablet(context))
+                                  ? null
+                                  : 50,
+                              child: Text(
+                                "Tools & Softwares",
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          ListWidget(width: width, title: "Visual Studio Code"),
-                          ListWidget(width: width, title: "MySQL"),
-                          ListWidget(width: width, title: "Figma"),
-                        ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ListWidget(
+                                width: width, title: "Visual Studio Code"),
+                            ListWidget(width: width, title: "MySQL"),
+                            ListWidget(width: width, title: "Figma"),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             )
           ],
@@ -528,35 +578,81 @@ class _HomePageState extends State<HomePage> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 3 / 4,
+                    mainAxisSpacing: spacing,
+                    crossAxisSpacing: spacing,
                   ),
                   itemCount: itemsProject.length,
                   scrollDirection: Axis.horizontal,
                   controller: controller,
                   itemBuilder: (context, index) {
                     ProjectModel item = itemsProject[index];
-                    return Container(
-                        width: width,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(children: [
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                                width: width,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.05,
-                                decoration: BoxDecoration(
-                                    color: greyColor,
-                                    image: DecorationImage(
-                                        image: AssetImage(item.image)))),
-                          ),
-                          SizedBox(height: 10),
-                          Expanded(
-                              flex: 1,
-                              child: Container(child: Text(item.title)))
-                        ]));
+                    hover.add(false);
+                    return MouseRegion(
+                      onEnter: (e) => _mouseEnter(index, item.title,
+                          item.description, item.image, true),
+                      onExit: (e) => _mouseEnter(index, item.title,
+                          item.description, item.image, false),
+                      child: Stack(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                color: greyColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                      width: width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.8,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: AssetImage(item.image)))),
+                                ),
+                                SizedBox(height: 20),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    child: Text(item.title,
+                                        style: blackTextStyle.copyWith(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                ),
+                              ])),
+                          if (hover[index])
+                            Positioned(
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.7),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            primary: whiteColor),
+                                        onPressed: () {
+                                          setState(() {
+                                            detailProduct = !detailProduct;
+                                          });
+                                        },
+                                        child: Text(
+                                          "Klik for Detail",
+                                          style: regularTextStyle.copyWith(
+                                              color: gradient2, fontSize: 16),
+                                        ),
+                                      ),
+                                    )))
+                        ],
+                      ),
+                    );
                   }),
             ),
             Positioned(
@@ -570,7 +666,8 @@ class _HomePageState extends State<HomePage> {
                           GestureDetector(
                               onTap: () {
                                 item = item - 1 < 0 ? item : item - 1;
-                                jumpToItem(item);
+
+                                jumpToItem(item, width);
                               },
                               child: Container(
                                   height: 40,
@@ -593,7 +690,8 @@ class _HomePageState extends State<HomePage> {
                               onTap: () {
                                 item =
                                     item + 1 >= newItemCount ? item : item + 1;
-                                jumpToItem(item);
+
+                                jumpToItem(item, width);
                               },
                               child: Container(
                                   height: 40,
@@ -613,7 +711,78 @@ class _HomePageState extends State<HomePage> {
                                       color: whiteColor))),
                         ])),
               ),
-            )
+            ),
+            if (detailProduct)
+              Positioned(
+                  child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    decoration: BoxDecoration(
+                      color: whiteColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: width / 15),
+                    width: width,
+                    height: height / 3,
+                    child: Row(children: [
+                      Flexible(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: AssetImage(imageDetail),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(width: 20),
+                      Flexible(
+                        flex: 3,
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Text(titledetail,
+                                          style: blackTextStyle.copyWith(
+                                              fontSize: 18)),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            detailProduct = !detailProduct;
+                                          });
+                                        },
+                                        icon: Icon(
+                                          Icons.close,
+                                          size: 30,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Text(descriptiondetail,
+                                  style: blackTextStyle.copyWith(fontSize: 14)),
+                              Spacer(),
+                              Container(
+                                  height: 30,
+                                  width: width * 0.1,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: gradient1,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Text("Download"))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ])),
+              ))
           ],
         ),
       ));
@@ -674,7 +843,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           menuButton(),
                           if (indexmenu == 0) aboutUs(),
-                          if (indexmenu == 1) resume(),
+                          if (indexmenu == 1)
+                            resume(NeverScrollableScrollPhysics(), true),
                           if (indexmenu == 2) project(),
                         ],
                       )),
@@ -713,7 +883,7 @@ class _HomePageState extends State<HomePage> {
                             headerImage(),
                             keahlian(),
                             address(),
-                            //button()
+                            button()
                           ]),
                         )),
                   ),
@@ -742,7 +912,8 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             menuButton(),
                             if (indexmenu == 0) aboutUs(),
-                            if (indexmenu == 1) resume(),
+                            if (indexmenu == 1)
+                              resume(AlwaysScrollableScrollPhysics(), false),
                             if (indexmenu == 2) project(),
                           ],
                         )),
@@ -805,7 +976,8 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           menuButton(),
                           if (indexmenu == 0) aboutUs(),
-                          if (indexmenu == 1) resume(),
+                          if (indexmenu == 1)
+                            resume(NeverScrollableScrollPhysics(), true),
                           if (indexmenu == 2) project(),
                         ],
                       )),
