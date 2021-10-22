@@ -31,6 +31,13 @@ class _HomePageState extends State<HomePage> {
   late String imageDetail;
   late String titledetail;
   late String descriptiondetail;
+  late String linkdownload;
+
+  @override
+  void initState() {
+    super.initState();
+    indexmenu = 0;
+  }
 
   get newItemCount => (itemsProject.length / 2).round();
 
@@ -48,13 +55,8 @@ class _HomePageState extends State<HomePage> {
     controller.jumpTo(newValue);
   }
 
-  void _mouseEnter(
-      int index, String title, String description, String image, bool active) {
+  void _mouseEnter(int index, bool active) {
     setState(() {
-      titledetail = title;
-      descriptiondetail = description;
-      imageDetail = image;
-
       hover[index] = active;
     });
   }
@@ -195,116 +197,102 @@ class _HomePageState extends State<HomePage> {
           height: 50,
           padding: EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              if (indexmenu == 0)
-                Container(
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(width: 2, color: gradient1))),
-                    child: Text(
-                      title1,
-                      style: blackTextStyle.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    indexmenu = 0;
+                  });
+                },
+                child: Container(
+                  decoration: (indexmenu == 0)
+                      ? BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              gradient1,
+                              gradient2,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(5))
+                      : null,
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 70,
+                  child: Center(
+                    child: Text(title1,
+                        style: regularTextStyle.copyWith(
+                            fontSize: 16,
+                            color: (indexmenu == 0) ? whiteColor : blackColor)),
                   ),
                 ),
-              if (indexmenu == 1)
-                Container(
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(width: 2, color: gradient1))),
-                    child: Text(
-                      title2,
-                      style: blackTextStyle.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    indexmenu = 1;
+                  });
+                },
+                child: Container(
+                  decoration: (indexmenu == 1)
+                      ? BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              gradient1,
+                              gradient2,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(5))
+                      : null,
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 70,
+                  child: Center(
+                    child: Text(title2,
+                        style: regularTextStyle.copyWith(
+                          color: (indexmenu == 1) ? whiteColor : blackColor,
+                          fontSize: 16,
+                        )),
                   ),
                 ),
-              if (indexmenu == 2)
-                Container(
-                  child: Container(
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(width: 2, color: gradient1))),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    indexmenu = 2;
+                  });
+                },
+                child: Container(
+                  decoration: (indexmenu == 2)
+                      ? BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              gradient1,
+                              gradient2,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(5))
+                      : null,
+                  margin: EdgeInsets.symmetric(horizontal: 5),
+                  width: 70,
+                  child: Center(
                     child: Text(
                       title3,
-                      style: blackTextStyle.copyWith(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: regularTextStyle.copyWith(
+                          fontSize: 16,
+                          color: (indexmenu == 2) ? whiteColor : blackColor),
                     ),
                   ),
-                ),
-              Expanded(child: Container()),
-              Container(
-                width: 180,
-                child: Row(
-                  children: [
-                    if (indexmenu != 0)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            indexmenu = 0;
-                          });
-                        },
-                        child: Container(
-                          width: 70,
-                          child: Text(title1,
-                              style: blackTextStyle.copyWith(
-                                fontSize: 16,
-                              )),
-                        ),
-                      ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    if (indexmenu != 1)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            indexmenu = 1;
-                          });
-                        },
-                        child: Container(
-                          width: 70,
-                          child: Text(title2,
-                              style: blackTextStyle.copyWith(
-                                fontSize: 16,
-                              )),
-                        ),
-                      ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    if (indexmenu != 2)
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            indexmenu = 2;
-                          });
-                        },
-                        child: Container(
-                          width: 70,
-                          child: Text(
-                            title3,
-                            style: blackTextStyle.copyWith(fontSize: 16),
-                          ),
-                        ),
-                      )
-                  ],
                 ),
               )
             ],
@@ -585,10 +573,8 @@ class _HomePageState extends State<HomePage> {
                     ProjectModel item = itemsProject[index];
                     hover.add(false);
                     return MouseRegion(
-                      onEnter: (e) => _mouseEnter(index, item.title,
-                          item.description, item.image, true),
-                      onExit: (e) => _mouseEnter(index, item.title,
-                          item.description, item.image, false),
+                      onEnter: (e) => _mouseEnter(index, true),
+                      onExit: (e) => _mouseEnter(index, false),
                       child: Stack(
                         children: [
                           Container(
@@ -637,13 +623,18 @@ class _HomePageState extends State<HomePage> {
                                             primary: whiteColor),
                                         onPressed: () {
                                           setState(() {
+                                            titledetail = item.title;
+                                            descriptiondetail =
+                                                item.description;
+                                            imageDetail = item.image;
+                                            linkdownload = item.link;
                                             detailProduct = !detailProduct;
                                           });
                                         },
                                         child: Text(
                                           "Klik for Detail",
                                           style: regularTextStyle.copyWith(
-                                              color: gradient2, fontSize: 16),
+                                              color: blackColor, fontSize: 16),
                                         ),
                                       ),
                                     )))
@@ -739,6 +730,7 @@ class _HomePageState extends State<HomePage> {
                         flex: 3,
                         child: Container(
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
                                 child: Row(
@@ -766,14 +758,22 @@ class _HomePageState extends State<HomePage> {
                               Text(descriptiondetail,
                                   style: blackTextStyle.copyWith(fontSize: 14)),
                               Spacer(),
-                              Container(
-                                  height: 30,
-                                  width: width * 0.1,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: gradient1,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Text("Download"))
+                              GestureDetector(
+                                onTap: () {
+                                  html.window.open(
+                                      '${linkdownload}', 'tab-${titledetail}');
+                                },
+                                child: Container(
+                                    height: 30,
+                                    width: width * 0.1,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: greyColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Text("Download",
+                                        style: regularTextStyle)),
+                              )
                             ],
                           ),
                         ),
