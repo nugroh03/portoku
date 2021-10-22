@@ -389,105 +389,102 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    Widget resume(physics, shrink) {
+    Widget resume() {
       return Expanded(
           child: Container(
-        child: ListView(
-          physics: physics, // <-- this will disable scroll
-          shrinkWrap: shrink,
+        child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: Container(
-                constraints: BoxConstraints(minHeight: 200),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Education",
+            Container(
+              constraints: BoxConstraints(minHeight: 200),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Education",
+                              style: blackTextStyle.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Ship Building Engineering",
                                 style: blackTextStyle.copyWith(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text("Ship Building Engineering",
-                                  style: blackTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              Text(
-                                  "Politechnic State Of Madura ( 2013 - 2016 )",
-                                  style: blackTextStyle.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              SizedBox(
-                                height: 5,
-                              ),
+                                )),
+                            Text("Politechnic State Of Madura ( 2013 - 2016 )",
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            if (Responsive.isDesktop(context) ||
+                                Responsive.isMobile(context))
                               Text(
                                   "Saya memang tidak memiliki latar belakang pendidikan seorang programer. namun tahun 2020 saya memulai belajar programer dari teman dan juga pelatihan-pelatihan programer yang ada seperti flutter",
                                   style: blackTextStyle.copyWith(
                                     fontSize: 14,
                                   )),
-                            ]),
-                      ),
+                          ]),
                     ),
-                    Expanded(
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Experience",
+                  ),
+                  Expanded(
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Experience",
+                              style: blackTextStyle.copyWith(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text("Front End Developer",
                                 style: blackTextStyle.copyWith(
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Text("Front End Developer",
-                                  style: blackTextStyle.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              Text(
-                                  "Hejo Teknologi Indonesia (Sept 2020 - Feb 2021)",
-                                  style: blackTextStyle.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              SizedBox(
-                                height: 5,
-                              ),
+                                )),
+                            Text(
+                                "Hejo Teknologi Indonesia (Sept 2020 - Feb 2021)",
+                                style: blackTextStyle.copyWith(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            if (Responsive.isDesktop(context) ||
+                                Responsive.isMobile(context))
                               Text(
                                   "Pekerjaan Saya sebagai Seorang Flutter Developer Dimulai dari sini",
                                   style: blackTextStyle.copyWith(
                                     fontSize: 14,
                                   )),
-                            ]),
-                      ),
-                    )
-                  ],
-                ),
+                          ]),
+                    ),
+                  )
+                ],
               ),
             ),
             Expanded(
-              flex: 3,
               child: Container(
                 decoration: BoxDecoration(
                     color: greyColor,
@@ -843,8 +840,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           menuButton(),
                           if (indexmenu == 0) aboutUs(),
-                          if (indexmenu == 1)
-                            resume(NeverScrollableScrollPhysics(), true),
+                          if (indexmenu == 1) resume(),
                           if (indexmenu == 2) project(),
                         ],
                       )),
@@ -912,8 +908,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             menuButton(),
                             if (indexmenu == 0) aboutUs(),
-                            if (indexmenu == 1)
-                              resume(AlwaysScrollableScrollPhysics(), false),
+                            if (indexmenu == 1) resume(),
                             if (indexmenu == 2) project(),
                           ],
                         )),
@@ -976,8 +971,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           menuButton(),
                           if (indexmenu == 0) aboutUs(),
-                          if (indexmenu == 1)
-                            resume(NeverScrollableScrollPhysics(), true),
+                          if (indexmenu == 1) resume(),
                           if (indexmenu == 2) project(),
                         ],
                       )),
