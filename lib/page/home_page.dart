@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
             width: width,
             button: () {
               html.window.open(
-                  ' https://drive.google.com/file/d/1ev2kDvV75se_i5qzAvluR13wrOAiy5jq/view',
+                  ' https://drive.google.com/file/d/17-w2oW740VoR-g64C7NE2T7jyUxaaA91/view?usp=sharing',
                   'tab2');
             },
             title: "Download Resume",

@@ -53901,7 +53901,7 @@ $0(){var s=null,r=this.a
 return M.ax(s,T.cs(H.a([new R.rb("Download Resume",r,new X.a0o(),s),new R.rb("Github",r,new X.a0p(),s)],t.D),C.J,C.E),s,s,s,s,new V.aj(0,10,0,0),new V.aj(30,0,30,0),s)},
 $S:16}
 X.a0o.prototype={
-$0(){C.a4.qC(window," https://drive.google.com/file/d/1ev2kDvV75se_i5qzAvluR13wrOAiy5jq/view","tab2")},
+$0(){C.a4.qC(window," https://drive.google.com/file/d/17-w2oW740VoR-g64C7NE2T7jyUxaaA91/view?usp=sharing","tab2")},
 $S:0}
 X.a0p.prototype={
 $0(){C.a4.qC(window," https://github.com/nugroh03","tab1")},
